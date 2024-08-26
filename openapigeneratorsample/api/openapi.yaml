@@ -32,9 +32,7 @@ paths:
                 $ref: '#/components/schemas/Hello'
           description: Successful operation
       security:
-      - Bearer:
-        - write:hellos
-        - read:hellos
+      - Bearer: []
       summary: hello bearer👋
       tags:
       - ping

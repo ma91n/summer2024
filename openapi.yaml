@@ -25,9 +25,7 @@ paths:
         '200':
           $ref: '#/components/responses/Hello'
       security:
-        - Bearer:
-            - 'write:hellos'
-            - 'read:hellos'
+        - Bearer: []
   '/hello-oauth2':
     get:
       tags:

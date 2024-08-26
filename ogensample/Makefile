@@ -1,8 +1,11 @@
-run:
-	go run .
+install:
+	go install -v github.com/ogen-go/ogen/cmd/ogen@v1.3.0
 
 generate:
-	ogen --target api --clean ../openapi.yaml
+	ogen --target api --clean openapi.yaml
+
+run:
+	go run .
 
 curl:
 	curl localhost:8080/hello

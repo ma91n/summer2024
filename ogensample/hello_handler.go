@@ -11,14 +11,14 @@ func (h HelloHandler) Hello(_ context.Context) (*api.Hello, error) {
 	return &api.Hello{Message: api.OptString{Value: "hello", Set: true}}, nil
 }
 
-func (h HelloHandler) HelloOIDC(_ context.Context) (*api.Hello, error) {
-	return &api.Hello{Message: api.OptString{Value: "hello", Set: true}}, nil
+func (h HelloHandler) HelloBearer(ctx context.Context) (*api.Hello, error) {
+	return h.Hello(ctx)
 }
 
-func (h HelloHandler) HelloBearer(_ context.Context) (*api.Hello, error) {
-	return &api.Hello{Message: api.OptString{Value: "hello", Set: true}}, nil
+func (h HelloHandler) HelloOAuth2(ctx context.Context) (*api.Hello, error) {
+	return h.Hello(ctx)
 }
 
-func (h HelloHandler) HelloOAuth2(_ context.Context) (*api.Hello, error) {
-	return &api.Hello{Message: api.OptString{Value: "hello", Set: true}}, nil
+func (h HelloHandler) HelloOIDC(ctx context.Context) (*api.Hello, error) {
+	return h.Hello(ctx)
 }

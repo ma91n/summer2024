@@ -4,7 +4,7 @@ install:
 
 # https://openapi-generator.tech/docs/generators/go-server/
 generate:
-	npx @openapitools/openapi-generator-cli generate -i ../openapi.yaml -g go-server --additional-properties=outputAsLibrary=true,sourceFolder=openapi -o .
+	npx @openapitools/openapi-generator-cli generate -i openapi.yaml -g go-server --additional-properties=outputAsLibrary=true,sourceFolder=openapi -o .
 	gofmt -l -w .
 
 run:

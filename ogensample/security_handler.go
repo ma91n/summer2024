@@ -6,10 +6,13 @@ import (
 	"encoding/pem"
 	"errors"
 	"fmt"
+	"strings"
+
 	"githu.com/ma91n/summer2024/ogensample/api"
 	"github.com/golang-jwt/jwt/v5"
-	"log"
 )
+
+var ErrClaimsInvalid = errors.New("provided claims do not match expected scopes")
 
 var jwtKey = `-----BEGIN PUBLIC KEY-----
 MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBhvYD1tKPtdH9fVFr3LeYWF7D43CX
@@ -23,19 +26,17 @@ type UserClaim struct {
 	Scope string `json:"scp"`
 }
 
-type SecurityHandler struct{}
+type MySecurityHandler struct{}
 
-func (o SecurityHandler) HandleBearer(ctx context.Context, operationName string, t api.Bearer) (context.Context, error) {
-	fmt.Printf("%v\n", operationName)
-	return o.handleToken(ctx, t.Token)
+func (o MySecurityHandler) HandleBearer(ctx context.Context, operationName string, t api.Bearer) (context.Context, error) {
+	return o.handleToken(ctx, t.Token, []string{})
 }
 
-func (o SecurityHandler) HandleOAuth2(ctx context.Context, operationName string, t api.OAuth2) (context.Context, error) {
-	fmt.Printf("%v %v\n", operationName, t.Scopes)
-	return o.handleToken(ctx, t.Token)
+func (o MySecurityHandler) HandleOAuth2(ctx context.Context, operationName string, t api.OAuth2) (context.Context, error) {
+	return o.handleToken(ctx, t.Token, t.Scopes)
 }
 
-func (o SecurityHandler) handleToken(ctx context.Context, jwtToken string) (context.Context, error) {
+func (o MySecurityHandler) handleToken(ctx context.Context, jwtToken string, expectedClaims []string) (context.Context, error) {
 	var userClaim UserClaim
 	token, err := jwt.ParseWithClaims(jwtToken, &userClaim, func(token *jwt.Token) (any, error) {
 		// 参考: https://stackoverflow.com/questions/21322182/how-to-store-ecdsa-private-key-in-go
@@ -43,12 +44,34 @@ func (o SecurityHandler) handleToken(ctx context.Context, jwtToken string) (cont
 		return x509.ParsePKIXPublicKey(blockPub.Bytes)
 	})
 	if err != nil {
-		log.Fatal(err)
+		return ctx, err
 	}
 
 	if !token.Valid {
 		return ctx, errors.New("invalid token")
 	}
 
+	if err = checkTokenClaims(expectedClaims, userClaim); err != nil {
+		return ctx, fmt.Errorf("token claims don't match: %w", err)
+	}
+
 	return nil, nil
+}
+
+// checkTokenClaims はスコープのチェックを行う
+
+func checkTokenClaims(expectedClaims []string, t UserClaim) error {
+	claims := strings.Split(t.Scope, " ")
+	claimsMap := make(map[string]bool, len(claims))
+	for _, c := range claims {
+		claimsMap[c] = true
+	}
+
+	for _, e := range expectedClaims {
+		if !claimsMap[e] {
+			return ErrClaimsInvalid
+		}
+	}
+
+	return nil
 }
