@@ -5,9 +5,8 @@ import (
 	"net/http"
 
 	"github.com/getkin/kin-openapi/openapi3filter"
-	"github.com/oapi-codegen/nethttp-middleware"
-
 	"github.com/ma91n/summer2024/oapicodegensample/api"
+	"github.com/oapi-codegen/nethttp-middleware"
 )
 
 func main() {
@@ -20,11 +19,11 @@ func main() {
 	mw := nethttpmiddleware.OapiRequestValidatorWithOptions(spec,
 		&nethttpmiddleware.Options{
 			Options: openapi3filter.Options{
-				AuthenticationFunc: api.NewAuthenticator(),
+				AuthenticationFunc: NewAuthenticator(),
 			},
 		})
 
-	strictHandler := api.NewStrictHandler(api.Server{}, nil)
+	strictHandler := api.NewStrictHandler(Server{}, nil)
 	handler := api.HandlerFromMux(strictHandler, http.NewServeMux())
 
 	s := &http.Server{

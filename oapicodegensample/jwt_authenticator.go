@@ -1,4 +1,4 @@
-package api
+package main
 
 // https://github.com/oapi-codegen/oapi-codegen/blob/main/examples/authenticated-api/stdhttp/server/jwt_authenticator.go
 
