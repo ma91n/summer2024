@@ -245,6 +245,8 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 	return m
 }
 
+type HelloJSONResponse Hello
+
 type HelloRequestObject struct {
 }
 
@@ -252,7 +254,7 @@ type HelloResponseObject interface {
 	VisitHelloResponse(w http.ResponseWriter) error
 }
 
-type Hello200JSONResponse Hello
+type Hello200JSONResponse struct{ HelloJSONResponse }
 
 func (response Hello200JSONResponse) VisitHelloResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
@@ -268,7 +270,7 @@ type HelloBearerResponseObject interface {
 	VisitHelloBearerResponse(w http.ResponseWriter) error
 }
 
-type HelloBearer200JSONResponse Hello
+type HelloBearer200JSONResponse struct{ HelloJSONResponse }
 
 func (response HelloBearer200JSONResponse) VisitHelloBearerResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
@@ -284,7 +286,7 @@ type HelloOAuth2ResponseObject interface {
 	VisitHelloOAuth2Response(w http.ResponseWriter) error
 }
 
-type HelloOAuth2200JSONResponse Hello
+type HelloOAuth2200JSONResponse struct{ HelloJSONResponse }
 
 func (response HelloOAuth2200JSONResponse) VisitHelloOAuth2Response(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
@@ -300,7 +302,7 @@ type HelloOIDCResponseObject interface {
 	VisitHelloOIDCResponse(w http.ResponseWriter) error
 }
 
-type HelloOIDC200JSONResponse Hello
+type HelloOIDC200JSONResponse struct{ HelloJSONResponse }
 
 func (response HelloOIDC200JSONResponse) VisitHelloOIDCResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
@@ -453,18 +455,17 @@ func (sh *strictHandler) HelloOIDC(w http.ResponseWriter, r *http.Request) {
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"H4sIAAAAAAAC/8yWT2/UPBDGv4o173tMk7zb91DlRosQRUgcCuJQ7cF1ZjduE9uyHZalyoVekBBCfALu",
-	"XHrgyrdZIXHkIyCPk12l1fYPp57qTB7PPPnZM9tzELoxWqHyDopzcKLChtPyKda1DgtjtUHrJVK4Qef4",
-	"HMMS3/LG1AgFVKRNwC9NeHTeSjWHrltH9MkpCk8Rh6K10i+PQqmYcx+5RRtWJ7R6om3DPRTw7PVLSKBE",
-	"J6w0XmoFRS9eXXxYXfxYvb9cXXz/9e3Tz8+XkET3oVxMszFUeW+gS+DFo9ZXk1BonJPibJLm61SzWi/I",
-	"G299pa18x4P0QJd4LfjK1n0JV2RZDyUVusl00E2yQY2QgMWZRVfduqfX0UdpEzFZ5GVBqB0U9MToiUnF",
-	"lrq1jAuhW+UhgYWVHjfaRpdyttyiDqekz/D27yDV6FQpTmAPHx8Ei9qgOiwPtFIo/PaE6QLreudM6YXK",
-	"whZZ7gitZnLeWkK6OblRQuhCcalmdC+99PUg4Uay3TRnwRATukQ2R4WWe22Zi7c0gTdoXTzv/9I8zYPv",
-	"fi8UsJvm6QQSMNxXRDurhgaYo79+Zejt769fPgJlib4PSyj6xglH7YxWLp7dJM/DH6GVR0XpuDG1FLQt",
-	"O3Uh59B+YfWvxRkU8E+26c+sb84sFiAWY09HrRDo3Kyt2dpS7Lm2abhdXrHt+dxBcUxv0U7yyf8wDer4",
-	"5Tsn667cDoBFERuamkWP27nsD535kOj05qE43syi43EPJaPum3bTa1B7FHdj23fOzWxJFKbS3fH2A+7h",
-	"4h0m8P3xRmR3xCtLcRtcGjtMxMlyD8Jh0j1gvjSI/4LuCMeNlKmkDcOUKo5dPteC15V2nh2RBhJo1z8D",
-	"RZbVw/tiL9/LMwhe+jJXU9HtH/7HSEBx+mkPUeim3Z8AAAD//xD7IS+6CAAA",
+	"H4sIAAAAAAAC/6xUsW4UMRD9FWug3Owel247kggRGoqAKKIrHO/srZNd27K9HEe0DWmQEEJ8AT1NClr+",
+	"5oREySegsX13XMJxAtKNZ59n3hvP20sQujNaofIOykuw6IxWDsPhMbatpkBo5VF5CrkxrRTcS62Kc6cV",
+	"5ZxosOMU3bdYQwn3inXVIn51Raw2DEMGFTphpaEiUMJJLwQ6V/ct0wZtqA0ESzc3qBhLGC8jww6d41Ok",
+	"EF/xzrQIJTQBm4GfGzo6b6WahoIpo8/OUfjYAkVvpZ+fUKtY8wC5RUvRWYgeadtxDyU8efEMbnKP4MXV",
+	"28XV18Wb68XVl++f33/7cA2JPbWLZdaEGu8NDBk8fdj7ZkyNNmuGPBvno1WputWzwI33vtFWvg4zOtQV",
+	"3ko+t21q4cqiSEPJhe4KTbhxsUQjZGCxtuianXcSLojSBtOm8KoMo3ZQhhMLJyYVm+veMi6E7pWHDGZW",
+	"elxjO13Jer4FTa+kL3C3joDaeNWQD4M9Pjr8zVgNquMjdqiVotfPQFOiSuft/fIZtu3ehdIzVdAVWe0J",
+	"rWo57dOqrhn8WjBuulR1WFsvfbuEcCPZfj5ixJcJXSGboqK915a5uMQZvETrIu8H+Sgfkax0F0rYz0f5",
+	"GDIw3DfhMYpm6Y8pBpuujHRcQZnck226ezwabbPsCrcybQau7zpu50t//fj08R0p51MH5SkYstiEcJHK",
+	"3tnKRdsZHSyN8V+8koOhPF1793Rz57KNbZ0Mk1tyWOS7S1XasT+qSra+Q1XLH8Xfq4p8d6qSldihiRx1",
+	"l4qCQ/9BT/AfE9FiW3QNq9TNX0CDvCXPNSguIAPFw/853Bsmw88AAAD//2EKF94MBwAA",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file

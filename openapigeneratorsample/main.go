@@ -10,7 +10,7 @@ import (
 func main() {
 	log.Printf("Server started")
 
-	controller := openapi.NewSummer2024APIController(openapi.NewSummer2024APIService())
+	controller := openapi.NewPingAPIController(openapi.NewPingAPIService())
 	handler := openapi.NewRouter(controller)
 	handler.Use(middleware.Authentication)
 	log.Fatal(http.ListenAndServe(":8080", handler))

@@ -3,15 +3,13 @@ info:
   title: openapi 3.0 auth code generator sample
   version: 1.0.0
 servers:
-- description: Localhost Server
-  url: http://localhost:8080/
+- url: /
 tags:
-- description: auth example
-  name: auth
+- description: health check
+  name: ping
 paths:
   /hello:
     get:
-      description: hello👋
       operationId: hello
       responses:
         "200":
@@ -22,10 +20,9 @@ paths:
           description: Successful operation
       summary: hello👋
       tags:
-      - summer2024
+      - ping
   /hello-bearer:
     get:
-      description: hello bearer security schema👋
       operationId: helloBearer
       responses:
         "200":
@@ -40,10 +37,9 @@ paths:
         - read:hellos
       summary: hello bearer👋
       tags:
-      - summer2024
+      - ping
   /hello-oauth2:
     get:
-      description: hello oauth 2.0 security schema👋
       operationId: helloOAuth2
       responses:
         "200":
@@ -58,10 +54,9 @@ paths:
         - read:hellos
       summary: hello oauth2👋
       tags:
-      - summer2024
+      - ping
   /hello-oidc:
     get:
-      description: hello openid connect security schema👋
       operationId: helloOIDC
       responses:
         "200":
@@ -76,8 +71,15 @@ paths:
         - read:hellos
       summary: hello openid connect👋
       tags:
-      - summer2024
+      - ping
 components:
+  responses:
+    Hello:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Hello'
+      description: Successful operation
   schemas:
     Hello:
       example:
@@ -105,5 +107,6 @@ components:
           tokenUrl: https://example.com/oauth2/token
       type: oauth2
     OIDC:
+      description: OpenID Connect
       openIdConnectUrl: https://example.com/.well-known/openid-configuration
       type: openIdConnect

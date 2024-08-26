@@ -15,25 +15,25 @@ import (
 	"strings"
 )
 
-// Summer2024APIController binds http requests to an api service and writes the service results to the http response
-type Summer2024APIController struct {
-	service      Summer2024APIServicer
+// PingAPIController binds http requests to an api service and writes the service results to the http response
+type PingAPIController struct {
+	service      PingAPIServicer
 	errorHandler ErrorHandler
 }
 
-// Summer2024APIOption for how the controller is set up.
-type Summer2024APIOption func(*Summer2024APIController)
+// PingAPIOption for how the controller is set up.
+type PingAPIOption func(*PingAPIController)
 
-// WithSummer2024APIErrorHandler inject ErrorHandler into controller
-func WithSummer2024APIErrorHandler(h ErrorHandler) Summer2024APIOption {
-	return func(c *Summer2024APIController) {
+// WithPingAPIErrorHandler inject ErrorHandler into controller
+func WithPingAPIErrorHandler(h ErrorHandler) PingAPIOption {
+	return func(c *PingAPIController) {
 		c.errorHandler = h
 	}
 }
 
-// NewSummer2024APIController creates a default api controller
-func NewSummer2024APIController(s Summer2024APIServicer, opts ...Summer2024APIOption) *Summer2024APIController {
-	controller := &Summer2024APIController{
+// NewPingAPIController creates a default api controller
+func NewPingAPIController(s PingAPIServicer, opts ...PingAPIOption) *PingAPIController {
+	controller := &PingAPIController{
 		service:      s,
 		errorHandler: DefaultErrorHandler,
 	}
@@ -45,8 +45,8 @@ func NewSummer2024APIController(s Summer2024APIServicer, opts ...Summer2024APIOp
 	return controller
 }
 
-// Routes returns all the api routes for the Summer2024APIController
-func (c *Summer2024APIController) Routes() Routes {
+// Routes returns all the api routes for the PingAPIController
+func (c *PingAPIController) Routes() Routes {
 	return Routes{
 		"Hello": Route{
 			strings.ToUpper("Get"),
@@ -72,7 +72,7 @@ func (c *Summer2024APIController) Routes() Routes {
 }
 
 // Hello - hello👋
-func (c *Summer2024APIController) Hello(w http.ResponseWriter, r *http.Request) {
+func (c *PingAPIController) Hello(w http.ResponseWriter, r *http.Request) {
 	result, err := c.service.Hello(r.Context())
 	// If an error occurred, encode the error with the status code
 	if err != nil {
@@ -84,7 +84,7 @@ func (c *Summer2024APIController) Hello(w http.ResponseWriter, r *http.Request) 
 }
 
 // HelloBearer - hello bearer👋
-func (c *Summer2024APIController) HelloBearer(w http.ResponseWriter, r *http.Request) {
+func (c *PingAPIController) HelloBearer(w http.ResponseWriter, r *http.Request) {
 	result, err := c.service.HelloBearer(r.Context())
 	// If an error occurred, encode the error with the status code
 	if err != nil {
@@ -96,7 +96,7 @@ func (c *Summer2024APIController) HelloBearer(w http.ResponseWriter, r *http.Req
 }
 
 // HelloOAuth2 - hello oauth2👋
-func (c *Summer2024APIController) HelloOAuth2(w http.ResponseWriter, r *http.Request) {
+func (c *PingAPIController) HelloOAuth2(w http.ResponseWriter, r *http.Request) {
 	result, err := c.service.HelloOAuth2(r.Context())
 	// If an error occurred, encode the error with the status code
 	if err != nil {
@@ -108,7 +108,7 @@ func (c *Summer2024APIController) HelloOAuth2(w http.ResponseWriter, r *http.Req
 }
 
 // HelloOIDC - hello openid connect👋
-func (c *Summer2024APIController) HelloOIDC(w http.ResponseWriter, r *http.Request) {
+func (c *PingAPIController) HelloOIDC(w http.ResponseWriter, r *http.Request) {
 	result, err := c.service.HelloOIDC(r.Context())
 	// If an error occurred, encode the error with the status code
 	if err != nil {

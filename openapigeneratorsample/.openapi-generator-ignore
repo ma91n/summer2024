@@ -22,4 +22,4 @@
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
 
-openapi/api_summer2024_service.go
+openapi/api_ping_service.go

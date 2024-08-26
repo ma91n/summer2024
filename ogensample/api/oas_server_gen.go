@@ -16,19 +16,19 @@ type Handler interface {
 	Hello(ctx context.Context) (*Hello, error)
 	// HelloBearer implements helloBearer operation.
 	//
-	// Hello bearer security schema👋.
+	// Hello bearer👋.
 	//
 	// GET /hello-bearer
 	HelloBearer(ctx context.Context) (*Hello, error)
 	// HelloOAuth2 implements helloOAuth2 operation.
 	//
-	// Hello oauth 2.0 security schema👋.
+	// Hello oauth2👋.
 	//
 	// GET /hello-oauth2
 	HelloOAuth2(ctx context.Context) (*Hello, error)
 	// HelloOIDC implements helloOIDC operation.
 	//
-	// Hello openid connect security schema👋.
+	// Hello openid connect👋.
 	//
 	// GET /hello-oidc
 	HelloOIDC(ctx context.Context) (*Hello, error)

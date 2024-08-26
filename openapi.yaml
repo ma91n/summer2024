@@ -1,42 +1,29 @@
 openapi: 3.0.2
-servers:
-  - url: http://localhost:8080/
-    description: Localhost Server
 info:
   version: 1.0.0
   title: openapi 3.0 auth code generator sample
 tags:
-  - name: auth
-    description: auth example
+  - name: ping
+    description: health check
 paths:
   '/hello':
     get:
       tags:
-        - summer2024
+        - ping
       summary: hello👋
-      description: hello👋
       operationId: hello
       responses:
         '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Hello'
+          $ref: '#/components/responses/Hello'
   '/hello-bearer':
     get:
       tags:
-        - summer2024
+        - ping
       summary: hello bearer👋
-      description: hello bearer security schema👋
       operationId: helloBearer
       responses:
         '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Hello'
+          $ref: '#/components/responses/Hello'
       security:
         - Bearer:
             - 'write:hellos'
@@ -44,17 +31,12 @@ paths:
   '/hello-oauth2':
     get:
       tags:
-        - summer2024
+        - ping
       summary: hello oauth2👋
-      description: hello oauth 2.0 security schema👋
       operationId: helloOAuth2
       responses:
         '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Hello'
+          $ref: '#/components/responses/Hello'
       security:
         - OAuth2:
             - 'write:hellos'
@@ -62,17 +44,12 @@ paths:
   '/hello-oidc':
     get:
       tags:
-        - summer2024
+        - ping
       summary: hello openid connect👋
-      description: hello openid connect security schema👋
       operationId: helloOIDC
       responses:
         '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Hello'
+          $ref: '#/components/responses/Hello'
       security:
         - OIDC:
             - 'write:hellos'
@@ -85,6 +62,13 @@ components:
           type: string
           example: hello
       type: object
+  responses:
+    Hello:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Hello'
   securitySchemes:
     Bearer:
       type: http
@@ -105,3 +89,4 @@ components:
     OIDC:
       type: openIdConnect
       openIdConnectUrl: https://example.com/.well-known/openid-configuration
+      description: 'OpenID Connect'

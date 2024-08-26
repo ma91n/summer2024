@@ -31,19 +31,19 @@ type Invoker interface {
 	Hello(ctx context.Context) (*Hello, error)
 	// HelloBearer invokes helloBearer operation.
 	//
-	// Hello bearer security schema👋.
+	// Hello bearer👋.
 	//
 	// GET /hello-bearer
 	HelloBearer(ctx context.Context) (*Hello, error)
 	// HelloOAuth2 invokes helloOAuth2 operation.
 	//
-	// Hello oauth 2.0 security schema👋.
+	// Hello oauth2👋.
 	//
 	// GET /hello-oauth2
 	HelloOAuth2(ctx context.Context) (*Hello, error)
 	// HelloOIDC invokes helloOIDC operation.
 	//
-	// Hello openid connect security schema👋.
+	// Hello openid connect👋.
 	//
 	// GET /hello-oidc
 	HelloOIDC(ctx context.Context) (*Hello, error)
@@ -173,7 +173,7 @@ func (c *Client) sendHello(ctx context.Context) (res *Hello, err error) {
 
 // HelloBearer invokes helloBearer operation.
 //
-// Hello bearer security schema👋.
+// Hello bearer👋.
 //
 // GET /hello-bearer
 func (c *Client) HelloBearer(ctx context.Context) (*Hello, error) {
@@ -278,7 +278,7 @@ func (c *Client) sendHelloBearer(ctx context.Context) (res *Hello, err error) {
 
 // HelloOAuth2 invokes helloOAuth2 operation.
 //
-// Hello oauth 2.0 security schema👋.
+// Hello oauth2👋.
 //
 // GET /hello-oauth2
 func (c *Client) HelloOAuth2(ctx context.Context) (*Hello, error) {
@@ -383,7 +383,7 @@ func (c *Client) sendHelloOAuth2(ctx context.Context) (res *Hello, err error) {
 
 // HelloOIDC invokes helloOIDC operation.
 //
-// Hello openid connect security schema👋.
+// Hello openid connect👋.
 //
 // GET /hello-oidc
 func (c *Client) HelloOIDC(ctx context.Context) (*Hello, error) {

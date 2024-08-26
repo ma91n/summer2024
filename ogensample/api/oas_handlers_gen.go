@@ -115,7 +115,7 @@ func (s *Server) handleHelloRequest(args [0]string, argsEscaped bool, w http.Res
 
 // handleHelloBearerRequest handles helloBearer operation.
 //
-// Hello bearer security schema👋.
+// Hello bearer👋.
 //
 // GET /hello-bearer
 func (s *Server) handleHelloBearerRequest(args [0]string, argsEscaped bool, w http.ResponseWriter, r *http.Request) {
@@ -256,7 +256,7 @@ func (s *Server) handleHelloBearerRequest(args [0]string, argsEscaped bool, w ht
 
 // handleHelloOAuth2Request handles helloOAuth2 operation.
 //
-// Hello oauth 2.0 security schema👋.
+// Hello oauth2👋.
 //
 // GET /hello-oauth2
 func (s *Server) handleHelloOAuth2Request(args [0]string, argsEscaped bool, w http.ResponseWriter, r *http.Request) {
@@ -397,7 +397,7 @@ func (s *Server) handleHelloOAuth2Request(args [0]string, argsEscaped bool, w ht
 
 // handleHelloOIDCRequest handles helloOIDC operation.
 //
-// Hello openid connect security schema👋.
+// Hello openid connect👋.
 //
 // GET /hello-oidc
 func (s *Server) handleHelloOIDCRequest(args [0]string, argsEscaped bool, w http.ResponseWriter, r *http.Request) {

@@ -15,21 +15,21 @@ import (
 	"net/http"
 )
 
-// Summer2024APIRouter defines the required methods for binding the api requests to a responses for the Summer2024API
-// The Summer2024APIRouter implementation should parse necessary information from the http request,
-// pass the data to a Summer2024APIServicer to perform the required actions, then write the service results to the http response.
-type Summer2024APIRouter interface {
+// PingAPIRouter defines the required methods for binding the api requests to a responses for the PingAPI
+// The PingAPIRouter implementation should parse necessary information from the http request,
+// pass the data to a PingAPIServicer to perform the required actions, then write the service results to the http response.
+type PingAPIRouter interface {
 	Hello(http.ResponseWriter, *http.Request)
 	HelloBearer(http.ResponseWriter, *http.Request)
 	HelloOAuth2(http.ResponseWriter, *http.Request)
 	HelloOIDC(http.ResponseWriter, *http.Request)
 }
 
-// Summer2024APIServicer defines the api actions for the Summer2024API service
+// PingAPIServicer defines the api actions for the PingAPI service
 // This interface intended to stay up to date with the openapi yaml used to generate it,
 // while the service implementation can be ignored with the .openapi-generator-ignore file
 // and updated with the logic required for the API.
-type Summer2024APIServicer interface {
+type PingAPIServicer interface {
 	Hello(context.Context) (ImplResponse, error)
 	HelloBearer(context.Context) (ImplResponse, error)
 	HelloOAuth2(context.Context) (ImplResponse, error)

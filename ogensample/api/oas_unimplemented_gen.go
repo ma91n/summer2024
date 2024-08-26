@@ -24,7 +24,7 @@ func (UnimplementedHandler) Hello(ctx context.Context) (r *Hello, _ error) {
 
 // HelloBearer implements helloBearer operation.
 //
-// Hello bearer security schema👋.
+// Hello bearer👋.
 //
 // GET /hello-bearer
 func (UnimplementedHandler) HelloBearer(ctx context.Context) (r *Hello, _ error) {
@@ -33,7 +33,7 @@ func (UnimplementedHandler) HelloBearer(ctx context.Context) (r *Hello, _ error)
 
 // HelloOAuth2 implements helloOAuth2 operation.
 //
-// Hello oauth 2.0 security schema👋.
+// Hello oauth2👋.
 //
 // GET /hello-oauth2
 func (UnimplementedHandler) HelloOAuth2(ctx context.Context) (r *Hello, _ error) {
@@ -42,7 +42,7 @@ func (UnimplementedHandler) HelloOAuth2(ctx context.Context) (r *Hello, _ error)
 
 // HelloOIDC implements helloOIDC operation.
 //
-// Hello openid connect security schema👋.
+// Hello openid connect👋.
 //
 // GET /hello-oidc
 func (UnimplementedHandler) HelloOIDC(ctx context.Context) (r *Hello, _ error) {
