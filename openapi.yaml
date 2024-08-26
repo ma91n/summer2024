@@ -1,0 +1,107 @@
+openapi: 3.0.2
+servers:
+  - url: http://localhost:8080/
+    description: Localhost Server
+info:
+  version: 1.0.0
+  title: openapi 3.0 auth code generator sample
+tags:
+  - name: auth
+    description: auth example
+paths:
+  '/hello':
+    get:
+      tags:
+        - summer2024
+      summary: hello👋
+      description: hello👋
+      operationId: hello
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hello'
+  '/hello-bearer':
+    get:
+      tags:
+        - summer2024
+      summary: hello bearer👋
+      description: hello bearer security schema👋
+      operationId: helloBearer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hello'
+      security:
+        - Bearer:
+            - 'write:hellos'
+            - 'read:hellos'
+  '/hello-oauth2':
+    get:
+      tags:
+        - summer2024
+      summary: hello oauth2👋
+      description: hello oauth 2.0 security schema👋
+      operationId: helloOAuth2
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hello'
+      security:
+        - OAuth2:
+            - 'write:hellos'
+            - 'read:hellos'
+  '/hello-oidc':
+    get:
+      tags:
+        - summer2024
+      summary: hello openid connect👋
+      description: hello openid connect security schema👋
+      operationId: helloOIDC
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hello'
+      security:
+        - OIDC:
+            - 'write:hellos'
+            - 'read:hellos'
+components:
+  schemas:
+    Hello:
+      properties:
+        message:
+          type: string
+          example: hello
+      type: object
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Bearerトークン認可'
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://example.com/oauth2/authorize'
+          tokenUrl: 'https://example.com/oauth2/token'
+          refreshUrl: 'https://example.com/oauth2/refresh'
+          scopes:
+            'write:hellos': modify hello in your account
+            'read:hellos': read hello in your account
+      description: 'OAuth 2.0認可'
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration

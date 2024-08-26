@@ -1,0 +1,10 @@
+README.md
+api/openapi.yaml
+openapi/api.go
+openapi/api_summer2024.go
+openapi/error.go
+openapi/helpers.go
+openapi/impl.go
+openapi/logger.go
+openapi/model_hello.go
+openapi/routers.go
