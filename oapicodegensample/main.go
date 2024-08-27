@@ -23,11 +23,11 @@ func main() {
 			},
 		})
 
-	strictHandler := api.NewStrictHandler(Server{}, nil)
-	handler := api.HandlerFromMux(strictHandler, http.NewServeMux())
+	strictHandler := api.NewStrictHandler(HelloServer{}, nil)
+	h := api.HandlerFromMux(strictHandler, http.NewServeMux())
 
 	s := &http.Server{
-		Handler: mw(handler),
+		Handler: mw(h),
 		Addr:    "0.0.0.0:8080",
 	}
 	log.Fatal(s.ListenAndServe())
