@@ -14,6 +14,7 @@ import (
 
 var ErrClaimsInvalid = errors.New("provided claims do not match expected scopes")
 
+// genjwtで生成された秘密鍵（本来は認可サーバから取得する）
 var jwtKey = `-----BEGIN PUBLIC KEY-----
 MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBhvYD1tKPtdH9fVFr3LeYWF7D43CX
 DVDa+7smiWOM1RkHFxcA04jJ4T0p7YZJAZBqdvMdtk07fuU8xOwTG3VWSWYBsQvl

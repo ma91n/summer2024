@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/ma91n/summer2024/openapigeneratorsample/middleware"
-	"github.com/ma91n/summer2024/openapigeneratorsample/openapi"
 	"log"
 	"net/http"
+
+	"github.com/ma91n/summer2024/openapigeneratorsample/openapi"
 )
 
 func main() {
@@ -12,6 +12,7 @@ func main() {
 
 	controller := openapi.NewPingAPIController(openapi.NewPingAPIService())
 	handler := openapi.NewRouter(controller)
-	handler.Use(middleware.Authentication)
+	handler.Use(Authentication)
+
 	log.Fatal(http.ListenAndServe(":8080", handler))
 }
